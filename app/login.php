@@ -101,9 +101,12 @@ $userManager = new UserManager($db->getConnection());
                     echo htmlspecialchars($_GET['error']);
                 }
                 ?>
-            </div>
-        </form>
-    </div>
+            
+        
 
+
+     
 </body>
 </html>
+
+

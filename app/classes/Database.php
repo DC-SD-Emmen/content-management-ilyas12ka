@@ -30,3 +30,50 @@
     }
 
 ?>
+
+<?php
+
+class User {
+    private $username;
+    private $email;
+    private $passwordHash;
+
+    public function __construct($username, $email, $password) {
+        $this->username = $username;
+        $this->email = $email;
+        $this->passwordHash = $this->hashPassword($password);
+    }
+
+    private function hashPassword($password) {
+        return password_hash($password, PASSWORD_BCRYPT);
+    }
+
+    public function checkPassword($password) {
+        return password_verify($password, $this->passwordHash);
+    }
+
+    public function getUsername() {
+        return $this->username;
+    }
+
+    public function getEmail() {
+        return $this->email;
+    }
+
+    public function getPasswordHash() {
+        return $this->passwordHash;
+    }
+
+    public function updateUser($newUsername = null, $newEmail = null, $newPassword = null) {
+        if ($newUsername) {
+            $this->username = $newUsername;
+        }
+        if ($newEmail) {
+            $this->email = $newEmail;
+        }
+        if ($newPassword) {
+            $this->passwordHash = $this->hashPassword($newPassword);
+        }
+    }
+}
+?>
