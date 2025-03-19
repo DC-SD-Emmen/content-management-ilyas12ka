@@ -36,47 +36,10 @@
 
 
 ?>
-<!-- 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-
-    <h2>Registreren</h2>
-    <form method="POST">
-
-        <label for="username"></label>
-        <input type="text" id="username" name="username" required><br><br>
-
-        <label for="password"></label>
-        <input type="password" id="password" name="password" required><br><br>
-
-        <input type="submit" value="Registreren" name='register'>
-    </form>
-
-    
-    <h2>Inloggen</h2>
-    <form method="POST" action="">
-        Gebruikersnaam: <input type="text" name="username" required><br><br>
-        Wachtwoord: <input type="password" name="password" required><br><br>
-        <input type="submit" value="Inloggen" name='login'>
-    </form> -->
 
 
 
-    
-
-       
-    
-
-    
-
-
-    <h2>Registreren</h2>
+    <!-- <h2>Registreren</h2>
     <?php
     if (isset($error)) {
         echo "<p style='color:red'>$error</p>";
@@ -110,43 +73,59 @@
         <input type="password" name="password" required><br><br>
         <input type="submit" value="Inloggen" name='inloggen'>
     </form>
-    <p>Geen account? <a href="register.php">Registreer hier</a></p>
+    <p>Geen account? <a href="register.php">Registreer hier</a></p> -->
 
 
 
 
-    <form method="POST">
-    <!-- Je kunt de game-ID dynamisch toevoegen vanuit de hoofdbibliotheek -->
+    <!-- <form method="POST">
+
     Game ID: <input type="text" name="game_id" required><br>
     <button type="submit">Voeg toe aan mijn bibliotheek</button>
-</form>
+</form> -->
 
 
 
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Game Library</title>
+    <link rel="stylesheet" href="styling.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>My Game Library</h1>
+            <p>Manage your game collection in one place.</p>
+        </header>
 
+        <!-- Game list -->
+        <section class="game-list">
+            <h2>Your Games</h2>
+            <ul id="game-list">
+                <!-- Dynamically added games will appear here -->
+                <li>
+                    <!-- <span class="game-title">The Witcher 3</span>
+                    <span class="game-genre">RPG</span> -->
+                </li>
+                <li>
+                    <!-- <span class="game-title">Minecraft</span>
+                    <span class="game-genre">Survival</span>
+                </li> -->
+                <!-- More games can be added here -->
+            </ul>
+        </section>
 
-<!-- <?php
-// // Haal alle games op uit de hoofdbibliotheek
+        <!-- Add game form -->
+        <section class="add-game">
+            <h2>Add a New Game</h2>
+            <form id="add-game-form">
+                <input type="text" id="game-title" placeholder="Game Title" required>
+                <input type="text" id="game-genre" placeholder="Game Genre" required>
+                <button type="submit">Add Game</button>
+            </form>
+        </section>
+    </div>
 
-// $stmt = $pdo->query("SELECT id, name FROM games");
-
-// echo "<h2>Hoofdbibliotheek</h2>";
-// while ($game = $stmt->fetch()) {
-//     echo "<div>";
-//     echo "<h3>" . htmlspecialchars($game['name']) . "</h3>";
-//     echo "<form method='POST'>";
-//     echo "<input type='hidden' name='game_id' value='" . $game['id'] . "'>";
-//     echo "<button type='submit'>Voeg toe aan mijn bibliotheek</button>";
-//     echo "</form>";
-//     echo "</div>";
-// }
-// ?>
-
+    <script src="app.js"></script>
 </body>
-</html> -->
-
-
-
-    
-    
-    
+</html>

@@ -105,8 +105,54 @@ $userManager = new UserManager($db->getConnection());
         
 
 
-     
-</body>
-</html>
+            
+    <h2>Registreren</h2>
+    <?php
+    if (isset($error)) {
+        echo "<p style='color:red'>$error</p>";
+    }
+    if (isset($success)) {
+        echo "<p style='color:green'>$success</p>";
+    }
+    ?>
+    <form method="post">
+        <label for="username">Gebruikersnaam:</label>
+        <input type="text" name="username" required><br><br>
+        <label for="email">E-mail:</label>
+        <input type="email" name="email" required><br><br>
+        <label for="password">Wachtwoord:</label>
+        <input type="password" name="password" required><br><br>
+        <input type="submit" value="Registreren" name='Registreren'>
+    </form>
+    <p>Heb je al een account? <a href="login.php">Inloggen hier</a></p>
+
+
+<!-- 
+    </head>
+<body>
+    <h2>Inloggen</h2>
+    <?php if (isset($error)) echo "<p style='color:red'>$error</p>"; ?>
+    
+    <form method="post">
+        <label for="username">Gebruikersnaam:</label>
+        <input type="text" name="username" required><br><br>
+        <label for="password">Wachtwoord:</label>
+        <input type="password" name="password" required><br><br>
+        <input type="submit" value="Inloggen" name='inloggen'>
+    </form>
+    <p>Geen account? <a href="register.php">Registreer hier</a></p>
+ -->
+
+    </body>
+    </html>
+
+    <form method="POST">
+
+Game ID: <input type="text" name="game_id" required><br>
+<button type="submit">Voeg toe aan mijn bibliotheek</button>
+</form>
+
+ 
+
 
 
