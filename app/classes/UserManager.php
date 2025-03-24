@@ -135,7 +135,7 @@ class UserManager {
     public function getUserById($userId) {
         try {
             $sql = "SELECT * FROM users WHERE id = :id";
-            $stmt = $this->pdo->prepare($sql);
+            $stmt = $this->conn->prepare($sql);
             $stmt->bindParam(':id', $userId);
             $stmt->execute();
 
@@ -153,16 +153,19 @@ class UserManager {
     }
     
     // Update gebruikersgegevens
-    public function updateUser(User $user) {
-        try {
-            $sql = "UPDATE users SET username = :username, email = :email WHERE id = :id";
-            $stmt = $this->pdo->prepare($sql);
-            $stmt->bindParam(':username', $user->getUsername());
-            $stmt->bindParam(':email', $user->getEmail());
-            $stmt->bindParam(':id', $user->getId());
+    public function updateUserName($postData) {
 
-            
+        $userName = $postData['username'];
+        $userID = $postData['id'];
+
+        try {
+            $sql = "UPDATE users SET username = :username WHERE id = :id";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bindParam(':username', $userName);
+            $stmt->bindParam(':id', $userID);
+
             $stmt->execute();
+            $_SESSION['user'] = $userName;
             echo "Gebruiker succesvol geüpdatet.\n";
         } catch (PDOException $e) {
             echo "Fout bij het updaten van gebruiker: " . $e->getMessage();
@@ -201,8 +204,8 @@ class UserManager {
         $stmt->execute(['user_id' => $userId, 'game_id' => $gameId]);
 
         echo "De game is toegevoegd aan de bibliotheek van de gebruiker.";
+        }
     }
-}
 
 
 // $userId = 1; 
@@ -211,34 +214,66 @@ class UserManager {
 
 
 
-// Functie om de games van een gebruiker op te halen
-function haalGamesOp($userId) {
-    global $pdo;
+    // Functie om de games van een gebruiker op te halen
+    function haalGamesOp($userId) {
+        global $pdo;
 
-    // SQL query om de games van een specifieke gebruiker op te halen
-    $stmt = $pdo->prepare("
-        SELECT g.game_id, g.game_name 
-        FROM games g
-        JOIN user_games ug ON g.game_id = ug.game_id
-        WHERE ug.user_id = :user_id
-    ");
-    $stmt->execute(['user_id' => $userId]);
+        // SQL query om de games van een specifieke gebruiker op te halen
+        $stmt = $pdo->prepare("
+            SELECT g.game_id, g.game_name 
+            FROM games g
+            JOIN user_games ug ON g.game_id = ug.game_id
+            WHERE ug.user_id = :user_id
+        ");
+        $stmt->execute(['user_id' => $userId]);
 
-    // Controleer of er games zijn
-    if ($stmt->rowCount() > 0) {
-        $games = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        foreach ($games as $game) {
-            echo "Game: " . $game['game_name'] . "<br>";
+        // Controleer of er games zijn
+        if ($stmt->rowCount() > 0) {
+            $games = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            foreach ($games as $game) {
+                echo "Game: " . $game['game_name'] . "<br>";
+            }
+        } else {
+            echo "Geen games gevonden voor deze gebruiker.";
         }
-    } else {
-        echo "Geen games gevonden voor deze gebruiker.";
     }
-}
 
 
 // $userId = 1; 
 // haalGamesOp($userId);
 
-}
+    //public function voor updatepassword
+    public function updatePassword($data) {
+        $input_username = $data['username'];
+        $input_password = $data['password'];
+        $new_password = $data['new_password'];
 
-  
+        try {
+            // SQL-query om de gebruiker op te halen
+            $sql = "SELECT * FROM users WHERE username = :username";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bindParam(':username', $input_username, PDO::PARAM_STR);
+            $stmt->execute();
+
+            $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if ($user) {
+                // Controleer of het ingevoerde wachtwoord overeenkomt met het opgeslagen wachtwoord
+                if (password_verify($input_password, $user['password'])) {
+                    // Versleutel het nieuwe wachtwoord
+                    $hashed_new_password = password_hash($new_password, PASSWORD_DEFAULT);
+
+                    // SQL-query om het wachtwoord bij te werken
+                    $update_sql = "UPDATE users SET password = :new_password WHERE username = :username";
+                    $update_stmt = $this->conn->prepare($update_sql);
+                    $update_stmt->bindParam(':new_password', $hashed_new_password, PDO::PARAM_STR);
+                }
+            }
+
+
+        } catch (PDOException $e) {
+            echo "Error:" . $e->getMessage();
+        }
+    }
+
+}

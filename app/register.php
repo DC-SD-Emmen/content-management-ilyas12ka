@@ -1,24 +1,20 @@
-<?php
-//autoloader for loading all Classes
-spl_autoload_register(function ($class) {
-    include 'classes/' . $class . '.php';
-});
-
-session_start();  
-
-?>
-
 <!DOCTYPE html>
 <html lang="nl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inloggen</title>
+    <title>register</title>
     <link rel='stylesheet' href='styling.css'>
 </head>
 <body>
 
-<?php  
+<?php
+
+//spl autoloader for loading all classes
+spl_autoload_register(function ($class) {
+    include 'classes/' . $class . '.php';
+});
+
 
 $db = new Database();
 $userManager = new UserManager($db->getConnection());
@@ -31,27 +27,27 @@ $userManager = new UserManager($db->getConnection());
 
 ?>
 
-    <div class="login-container">
-        <h2>Inloggen</h2>
+    <!-- <div class="login-container">
+        <h2>Inloggen</h2> -->
 
         <!-- Inlogformulier -->
-        <form method ="POST">
-            
-            <div class="form-group">
+        <!-- <form method ="POST">
+             -->
+            <!-- <div class="form-group">
                 <label for="username">Gebruikersnaam</label>
                 <input type="text" id="username" name="username" required>
-            </div>
+            </div> -->
 
-            <div class="form-group">
+            <!-- <div class="form-group">
                 <label for="password">Wachtwoord</label>
                 <input type="password" id="password" name="password" required>
-            </div>
+            </div> -->
 
-            <div class="form-group">
+            <!-- <div class="form-group">
                 <input type="submit" value="Inloggen">
-            </div>
+            </div> -->
 
-            <div class="error-message">
+            <!-- <div class="error-message"> -->
               
                  
                 <?php
@@ -63,7 +59,7 @@ $userManager = new UserManager($db->getConnection());
         
 
 
-<!--             
+            
     <h2>Registreren</h2>
     <?php
     if (isset($error)) {
@@ -100,9 +96,10 @@ $userManager = new UserManager($db->getConnection());
 
 Game ID: <input type="text" name="game_id" required><br>
 <button type="submit">Voeg toe aan mijn bibliotheek</button>
-</form> -->
+</form>
 
  
+
 
 
 
