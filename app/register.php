@@ -27,27 +27,7 @@ $userManager = new UserManager($db->getConnection());
 
 ?>
 
-    <!-- <div class="login-container">
-        <h2>Inloggen</h2> -->
-
-        <!-- Inlogformulier -->
-        <!-- <form method ="POST">
-             -->
-            <!-- <div class="form-group">
-                <label for="username">Gebruikersnaam</label>
-                <input type="text" id="username" name="username" required>
-            </div> -->
-
-            <!-- <div class="form-group">
-                <label for="password">Wachtwoord</label>
-                <input type="password" id="password" name="password" required>
-            </div> -->
-
-            <!-- <div class="form-group">
-                <input type="submit" value="Inloggen">
-            </div> -->
-
-            <!-- <div class="error-message"> -->
+    
               
                  
                 <?php

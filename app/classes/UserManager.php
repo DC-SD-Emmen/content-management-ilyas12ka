@@ -93,7 +93,7 @@ class UserManager {
     public function createUser(User $user) {
         try {
             // Versleutel het wachtwoord
-            // $user->hashPassword();
+            $user->hashPassword();
 
             // SQL-query voor het invoegen van de gebruiker
             $sql = "INSERT INTO users (username, email, password) VALUES (:username, :email, :password)";
