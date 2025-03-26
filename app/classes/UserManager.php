@@ -93,7 +93,7 @@ class UserManager {
     public function createUser(User $user) {
         try {
             // Versleutel het wachtwoord
-            $user->hashPassword();
+            // $user->hashPassword();
 
             // SQL-query voor het invoegen van de gebruiker
             $sql = "INSERT INTO users (username, email, password) VALUES (:username, :email, :password)";
@@ -165,7 +165,7 @@ class UserManager {
             $stmt->bindParam(':id', $userID);
 
             $stmt->execute();
-            $_SESSION['user'] = $userName;
+            $_SESSION['user'] = $userName;	
             echo "Gebruiker succesvol geüpdatet.\n";
         } catch (PDOException $e) {
             echo "Fout bij het updaten van gebruiker: " . $e->getMessage();
@@ -244,15 +244,15 @@ class UserManager {
 
     //public function voor updatepassword
     public function updatePassword($data) {
-        $input_username = $data['username'];
+        $user_id = $data['id'];
         $input_password = $data['password'];
-        $new_password = $data['new_password'];
+        $new_password = $data['passwordNEW'];
 
         try {
             // SQL-query om de gebruiker op te halen
-            $sql = "SELECT * FROM users WHERE username = :username";
+            $sql = "SELECT * FROM users WHERE id = :userid";
             $stmt = $this->conn->prepare($sql);
-            $stmt->bindParam(':username', $input_username, PDO::PARAM_STR);
+            $stmt->bindParam(':userid', $user_id, PDO::PARAM_INT);
             $stmt->execute();
 
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -264,9 +264,16 @@ class UserManager {
                     $hashed_new_password = password_hash($new_password, PASSWORD_DEFAULT);
 
                     // SQL-query om het wachtwoord bij te werken
-                    $update_sql = "UPDATE users SET password = :new_password WHERE username = :username";
-                    $update_stmt = $this->conn->prepare($update_sql);
-                    $update_stmt->bindParam(':new_password', $hashed_new_password, PDO::PARAM_STR);
+                    try {
+                        $update_sql = "UPDATE users SET password = :new_password WHERE id = :userid";
+                        $update_stmt = $this->conn->prepare($update_sql);
+                        $update_stmt->bindParam(':new_password', $hashed_new_password, PDO::PARAM_STR);
+                        $update_stmt->bindParam(':userid', $user_id, PDO::PARAM_INT);
+                        $update_stmt->execute();
+                        echo "Wachtwoord succesvol bijgewerkt.";
+                    } catch (PDOException $e) {
+                        echo "Fout bij het bijwerken van wachtwoord: " . $e->getMessage();
+                    }
                 }
             }
 

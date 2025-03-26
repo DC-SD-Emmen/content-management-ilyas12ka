@@ -44,7 +44,7 @@ class GameManager {
         $rating = $data['rating'];
 
 
-        $query = "INSERT INTO games (title, genre, platform, `release`, rating, imageName) 
+        $query = "INSERT INTO games (title, genre, platform, `release`, rating, image) 
           VALUES (:title, :genre, :platform, :release, :rating, :imageName)";
         $stmt = $this->connection->prepare($query);
         $stmt->bindParam(':title', $title);
@@ -78,7 +78,7 @@ class GameManager {
     }
 
     public function fileUpload($file) {
-        $target_dir = "uploads/";
+        $target_dir = "./classes/uploads/";
         $target_file = $target_dir . basename($file["name"]);
         $uploadOk = 1;
         $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));

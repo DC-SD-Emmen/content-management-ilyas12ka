@@ -17,7 +17,7 @@ class Game {
         $this->platform = $data['platform']; 
         $this->release = $data['release']; 
         $this->rating = $data['rating'];   
-        $this->image = $data['imageName'];     
+        $this->image = $data['image'];     
     }
 
     public function setId($id) {

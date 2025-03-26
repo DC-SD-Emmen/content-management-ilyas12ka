@@ -102,6 +102,32 @@ Game ID: <input type="text" name="game_id" required><br>
 <button type="submit">Voeg toe aan mijn bibliotheek</button>
 </form> -->
 
+
+<style>
+
+        body {
+            background-color: lightblue;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        form {
+            margin: 0 auto;
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        input {
+            margin: 10px;
+            padding: 5px;
+        }       
+</body>
+</html>
  
 
 

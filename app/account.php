@@ -50,7 +50,7 @@
 </head>
 <body>
 
-    <h1>Welkom op de beveiligde pagina!</h1>
+    <h1>Account detail page</h1>
 
     <form method='POST'>
         <input type='hidden' name='id' value='<?php echo $_SESSION["user_id"]; ?>'>
