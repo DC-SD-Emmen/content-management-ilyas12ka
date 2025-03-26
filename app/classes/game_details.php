@@ -1,7 +1,7 @@
 
  <?php
 $host = 'mysql';   
-$db = 'gamelibrary';
+$db = 'mydatabase';
 $user = 'root';        
 $password = 'root';            
 
